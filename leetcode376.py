@@ -1,16 +1,17 @@
 class Solution:
     def wiggleMaxLength(self, nums: List[int]) -> int:
-        if len(nums) < 2:
-            return len(nums)
+        n = len(nums)
+        up, down = [0]*n, [0]*n
         
-        up = [0] * len(nums)
-        down = [0] * len(nums)
+        for i in range(1, n):
+            if nums[i] > nums[i-1]:
+                up[i] = down[i-1]+1
+                down[i] = down[i-1]
+            elif nums[i] < nums[i-1]:
+                down[i] = up[i-1]+1
+                up[i] = up[i-1]
+            else:
+                up[i] = up[i-1]
+                down[i] = down[i-1]
         
-        for i in range(1, len(nums)):
-            for j in range(i):
-                if (nums[i] > nums[j]):
-                    up[i] = max(up[i], down[j] + 1)
-                elif nums[i] < nums[j]:
-                    down[i] = max(down[i], up[j] + 1)
-        
-        return 1 + max(down[-1], up[-1])
+        return max(up[-1], down[-1]) + 1
