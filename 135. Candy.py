@@ -6,7 +6,7 @@ class Solution:
                 left.append(left[-1] + 1)
             else:
                 left.append(1) 
-        
+    
         right = [1] * len(ratings)
         for i in range(len(ratings)-2, -1, -1):
             if ratings[i] > ratings[i+1]:
