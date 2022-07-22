@@ -22,4 +22,3 @@ class Solution:
         before.next = after_head.next
         
         return before_head.next
-     
