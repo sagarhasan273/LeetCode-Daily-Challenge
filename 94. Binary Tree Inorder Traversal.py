@@ -5,15 +5,28 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        res = []
-        def dfs(root, res):
-            if not root:
-                return []
-
-            dfs(root.left, res)
-            res += [root.val]
-            dfs(root.right, res)
+    def tree2str(self, root: Optional[TreeNode]) -> str:
+        if not root:
+            return ""
         
-        dfs(root, res)
-        return res
+        stack = collections.deque([])
+        stack.append(root)
+        visited = set()
+        s = []
+        
+        while stack:
+            node = stack[-1]
+            if node in visited:
+                stack.pop()
+                s.append(")")
+            else:
+                visited.add(node)
+                s.append("("+str(node.val))
+                if not node.left and node.right:
+                    s.append("()")
+                if node.right:
+                    stack.append(node.right)
+                if node.left:
+                    stack.append(node.left)
+
+        return "".join(s[:-1])[1:]
