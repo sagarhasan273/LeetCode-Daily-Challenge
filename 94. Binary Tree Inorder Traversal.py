@@ -12,21 +12,25 @@ class Solution:
         stack = collections.deque([])
         stack.append(root)
         visited = set()
-        s = []
+        s = ''
         
         while stack:
             node = stack[-1]
+            
             if node in visited:
                 stack.pop()
-                s.append(")")
+                s += ")"
             else:
                 visited.add(node)
-                s.append("("+str(node.val))
+                s += "(" + str(node.val)
+                
                 if not node.left and node.right:
-                    s.append("()")
+                    s += "()"
+                
                 if node.right:
                     stack.append(node.right)
+                    
                 if node.left:
                     stack.append(node.left)
-
-        return "".join(s[:-1])[1:]
+        
+        return s[1:-1]
