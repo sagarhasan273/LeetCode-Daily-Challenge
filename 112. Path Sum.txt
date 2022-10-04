@@ -27,18 +27,17 @@ public:
     bool hasPathSum(TreeNode* root, int targetSum) {
         stack<pair<TreeNode*, int>> stk;
         
-        if (root == NULL) return false;
-        
+        if (root == nullptr) return false;
         stk.push({root, 0});
         
-        while (!stk.empty()){
+        while(!stk.empty()){
             auto [curr, sum] = stk.top(); stk.pop();
-            
             sum += curr->val;
             
             if (sum == targetSum && curr->left == curr->right) return true;
             
             if (curr->left != nullptr) stk.push({curr->left, sum});
+            
             if (curr->right != nullptr) stk.push({curr->right, sum});
         }
         
