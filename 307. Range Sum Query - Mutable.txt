@@ -1,0 +1,37 @@
+Python 3 Approach 2: Sqrt Decomposition:
+
+class NumArray:
+
+    def __init__(self, nums: List[int]):
+        self.nums = nums
+        nb = math.sqrt(len(self.nums))
+        self.l = math.ceil(len(self.nums)/nb)
+
+        self.b = [0]*self.l
+        
+        for i in range(len(self.nums)):
+            self.b[int(i/self.l)] += self.nums[i]   
+
+    def update(self, index: int, val: int) -> None:
+        b_l = int(index/self.l)
+        self.b[b_l] = self.b[b_l] - self.nums[index] + val
+        self.nums[index] = val
+
+    def sumRange(self, left: int, right: int) -> int:
+        s = 0
+        startBlock = int(left/self.l)
+        endBlock = int(right / self.l)
+        
+        if startBlock == endBlock:
+            for k in range(left, right+1):
+                s += self.nums[k]
+        else:
+            for k in range(left, ((startBlock + 1) * self.l)):
+                s += self.nums[k]
+            for k in range(startBlock+1, endBlock):
+                s += self.b[k]
+            for k in range(endBlock*self.l, right+1):
+                s += self.nums[k]
+        
+        return s
+        
