@@ -15,3 +15,7 @@ public:
         return true;
     }
 };
+
+
+Approach #2: Sorted List + Binary Search:
+
