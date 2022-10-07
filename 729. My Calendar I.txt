@@ -1,0 +1,17 @@
+Approach #1: Brute Force:
+
+class MyCalendar {
+public:
+    vector<pair<int, int>> calendar;
+    MyCalendar() {
+        
+    }
+    
+    bool book(int start, int end) {
+        for (auto it = calendar.begin(); it != calendar.end(); it++){
+            if (start < it->second && it->first < end) return false;
+        }
+        calendar.push_back({start, end});
+        return true;
+    }
+};
