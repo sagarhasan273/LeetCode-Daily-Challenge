@@ -1,0 +1,19 @@
+class MyCalendarTwo {
+public:
+    set<pair<int, int>> overlaps, calendar;
+    MyCalendarTwo() {
+        
+    }
+    
+    bool book(int start, int end) {
+        for (auto x: overlaps){
+            if (start < x.second && x.first < end) return false;
+        }
+        
+        for (auto x: calendar){
+            if (start < x.second && x.first < end) overlaps.insert({max(x.first, start), min(x.second, end)});
+        }
+        calendar.insert({start, end});
+        return true;
+    }
+};
