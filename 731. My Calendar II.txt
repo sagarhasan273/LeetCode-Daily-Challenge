@@ -17,3 +17,33 @@ public:
         return true;
     }
 };
+
+
+
+class MyCalendarTwo {
+public:
+    
+    map<int, int> diff;
+    MyCalendarTwo() {
+        
+    }
+    
+    bool book(int start, int end) {
+        int curr=0, res=0;
+        diff[start]++;
+        diff[end]--;
+        
+        for (auto [_, x]: diff){
+            curr += x;
+            res = max(res, curr);
+        }
+        
+        if (res >= 3){
+            diff[start]--;
+            diff[end]++;
+            return false;
+        }
+        
+        return true;
+    }
+};
