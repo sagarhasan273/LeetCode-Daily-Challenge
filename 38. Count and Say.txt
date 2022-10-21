@@ -1,0 +1,28 @@
+class Solution:
+    def countAndSay(self, n: int) -> str:
+        string = "1"
+        for i in range(n-1):
+            count = 0
+            j = 0
+            
+            res = []
+            c = string[0]
+            
+            while j < len(string):
+                if c == string[j]:
+                    count += 1
+                    j += 1
+                else:
+                    res.append([c, count])
+                    c = string[j]
+                    count = 1
+                    j += 1
+
+            res.append([c, count])
+            
+            new = ""
+            for y, x in res:
+                new += str(x) + str(y)
+            string = new
+            
+        return string
