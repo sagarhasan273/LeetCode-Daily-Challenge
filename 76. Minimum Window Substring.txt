@@ -41,3 +41,43 @@ class Solution:
                 i += 1
 
         return s[res[0]:res[1]+1] if res != [-1, -1] else ""
+
+
+
+C++ Solution:
+
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        unordered_map<int, int> mp;
+        
+        for (int i = 0; i < t.size(); i++) mp[t[i]]++;
+        
+        int i = 0, j = 0, counter = t.size();
+        int minStart = 0, minLength = INT_MAX;
+        
+        while (j<s.size()){
+            if (mp[s[j]] > 0){
+                counter--;
+            }
+            
+            mp[s[j]]--;
+            
+            j++;
+            
+            while (counter == 0){
+                if (j-i < minLength){
+                    minStart = i;
+                    minLength = j-i;
+                }
+                mp[s[i]]++;
+                if (mp[s[i]] > 0){
+                    counter++;
+                }
+                i++;
+            }
+        }
+        if (minLength == INT_MAX) return "";
+        return s.substr(minStart, minLength);
+    }
+};
