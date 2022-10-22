@@ -1,0 +1,43 @@
+Python 3 solution:
+
+
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        if t == '' or len(t) > len(s): return ""
+        
+        i = have = 0
+        mn = float('inf')
+        
+        hashMap, t_map = {}, {}
+        res = [-1, -1]
+        
+        for x in t:
+            if x not in t_map:
+                t_map[x] = 0
+            t_map[x] += 1
+            hashMap[x] = 0
+        
+        need = len(t_map)
+        
+        for j in range(len(s)):
+            if s[j] in hashMap:
+                hashMap[s[j]] += 1
+                if hashMap[s[j]] == t_map[s[j]]:
+                    have += 1
+                
+            if need == have and j-i < mn:
+                res = [i, j]
+                mn = j-i
+
+            while need == have:
+                if j-i < mn:
+                    res = [i, j]
+                    mn = j-i
+                    
+                if s[i] in hashMap:
+                    hashMap[s[i]] -= 1
+                    if hashMap[s[i]] < t_map[s[i]]:
+                        have -= 1
+                i += 1
+
+        return s[res[0]:res[1]+1] if res != [-1, -1] else ""
