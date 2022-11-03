@@ -1,0 +1,19 @@
+class Solution:
+    def minMutation(self, start: str, end: str, bank: List[str]) -> int:
+        que = deque([(start, 0)])
+        seen = {start}
+        
+        while que:
+            gene, step = que.popleft();
+            
+            for g in "ACGT":
+                if gene == end:
+                    return step
+                for i in range(len(gene)):
+                    newGene = gene[:i] + g + gene[i+1:]
+                    
+                    if newGene not in seen and newGene in bank:
+                        que.append((newGene, step+1))
+                        seen.add(newGene)
+                        
+        return -1
