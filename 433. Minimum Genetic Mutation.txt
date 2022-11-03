@@ -17,3 +17,39 @@ class Solution:
                         seen.add(newGene)
                         
         return -1
+
+
+C++ solution:
+
+class Solution {
+public:
+    int minMutation(string start, string end, vector<string>& bank) {
+        deque<pair<string, int>> que{{start, 0}};
+        unordered_set<string> seen;
+        seen.insert(start);
+        
+        while (!que.empty()){  
+            auto x = que.front();que.pop_front();
+            string gene = x.first;
+            int step = x.second;
+            
+            if (gene == end)
+                return step;
+            
+            for (auto g: {'A', 'C', 'G', 'T'}){
+                
+                for (int i = 0; i < gene.size(); i++){
+                    string newGene = gene.substr(0, i) + g + gene.substr(i+1);
+                    
+                    if (!seen.count(newGene) && find(bank.begin(), bank.end(), newGene) != bank.end()){
+                        que.push_back({newGene, step+1});
+                        seen.insert(newGene);
+                    }
+                }
+            }
+            
+        }
+        return -1;
+    }
+};
+
