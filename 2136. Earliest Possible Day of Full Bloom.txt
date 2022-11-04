@@ -14,3 +14,19 @@ public:
         return result;
     }
 };
+
+
+
+Python 3:
+
+
+class Solution:
+    def earliestFullBloom(self, plantTime: List[int], growTime: List[int]) -> int:
+        indices = list(range(len(plantTime)))
+        indices.sort(key=lambda x: -growTime[x]);
+        result = curTime = 0
+        for i in indices:
+            curTime += plantTime[i]
+            result = max(result, curTime+growTime[i])
+        
+        return result
