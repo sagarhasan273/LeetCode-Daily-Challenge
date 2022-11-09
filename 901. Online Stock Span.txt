@@ -1,0 +1,26 @@
+Approch 01 :-> Python 3:
+
+class StockSpanner:
+
+    def __init__(self):
+        self.stock = []
+        self.stack = []
+
+    def next(self, price: int) -> int:
+        
+
+        while self.stack and self.stack[-1][0] <= price:
+            self.stack.pop()
+            
+        self.stock.append(price)
+
+        if not self.stack:
+            self.stack.append((price, len(self.stock)))
+            return len(self.stock)
+        
+        count = len(self.stock) - self.stack[-1][1]
+        
+        self.stack.append((price, len(self.stock)))
+        
+        return count
+
