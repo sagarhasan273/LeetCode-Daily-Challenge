@@ -46,3 +46,27 @@ class StockSpanner:
         count = self.size - self.stack[-1][1]
         self.stack.append((price, self.size))
         return count
+
+
+Approch 03 C++:
+
+class StockSpanner {
+public:
+    stack<pair<int, int>> stack;
+    StockSpanner() {
+        
+    }
+    
+    int next(int price) {
+        int count = 1;
+        
+        while (!stack.empty() && stack.top().first <= price){
+            count += stack.top().second;
+            stack.pop();
+        }
+        
+        stack.push({price, count});
+        
+        return count;
+    }
+};
