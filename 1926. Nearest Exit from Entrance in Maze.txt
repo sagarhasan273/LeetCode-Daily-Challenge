@@ -28,3 +28,38 @@ class Solution:
         return -1
 
 
+C++ solution:
+
+class Solution {
+public:
+    int nearestExit(vector<vector<char>>& maze, vector<int>& entrance) {
+        int rows = maze.size(), cols = maze[0].size();
+        
+        vector<pair<int, int>> dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        
+        int startRow = entrance[0], startCol = entrance[1];
+        maze[startRow][startCol] = '+';
+        
+        queue<array<int, 3>> que;
+        que.push({startRow, startCol, 0});
+        
+        while (!que.empty()){
+            auto [r, c, step] = que.front();que.pop();
+            
+            for (auto dir: dirs){
+                int i = r + dir.first, j = c + dir.second;
+                
+                if (0 <= i && i < rows && 0 <= j && j < cols && maze[i][j] == '.'){
+                    if (i == 0 || i == rows-1 || j == 0 || j == cols-1){
+                        return step + 1;
+                    }
+                    
+                    maze[i][j] = '+';
+                    que.push({i, j, step+1});
+                }
+            }
+        }
+        
+        return -1;
+    }
+};
