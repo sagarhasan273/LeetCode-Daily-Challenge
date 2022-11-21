@@ -1,0 +1,30 @@
+Python 3:
+
+class Solution:
+    def nearestExit(self, maze: List[List[str]], entrance: List[int]) -> int:
+        row, col = len(maze), len(maze[0])
+
+        start_row, start_col = entrance
+        maze[start_row][start_col] = "+"
+        
+        que = collections.deque()
+        que.append([start_row, start_col, 0])
+        
+        while que:
+            r, c, step = que.popleft()
+
+            for dr, dc in [[1, 0], [-1, 0], [0, 1], [0, -1]]:
+                i = r + dr
+                j = c + dc
+                
+                if 0 <= i < row and 0 <= j < col and maze[i][j] == ".": 
+                    
+                    if i == 0 or i == row-1 or j == 0 or j == col-1:
+                        return step + 1
+                    
+                    maze[i][j] = "+"
+                    que.append([i, j, step+1])
+        
+        return -1
+
+
